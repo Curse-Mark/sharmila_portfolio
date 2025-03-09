@@ -1,0 +1,253 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 142 76% 36%;
+    --primary-hover: 142 76% 96%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 142 76% 95%;
+    --accent-foreground: 142 76% 36%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 142 76% 36%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 6.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 142 76% 36%;
+    --primary-hover: 142 36% 16%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 142 76% 16%;
+    --accent-foreground: 142 76% 86%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 142 76% 36%;
+  }
+}
+
+@layer components {
+  .card-3d-hover {
+    @apply transition-all duration-500 ease-out
+    hover:border-primary/50 hover:shadow-md
+    dark:hover:border-primary/30;
+  }
+  
+  .icon-hover {
+    @apply transition-all duration-300 
+    hover:text-primary dark:hover:text-primary 
+    hover:scale-125 transform;
+  }
+  
+  .card-3d-effect {
+    @apply transition-all duration-500
+    hover:border-primary/50 hover:shadow-xl border border-border/50 
+    transform hover:scale-[1.05] hover:rotate-y-6 hover:shadow-primary/20
+    dark:hover:border-primary/40 dark:hover:shadow-primary/10 
+    dark:border-gray-700/50;
+  }
+
+  .section-card {
+    @apply bg-white dark:bg-gray-800 rounded-lg shadow-md border border-border/50
+    dark:border-gray-700/50 overflow-hidden transition-all duration-500
+    hover:shadow-xl hover:border-primary/30 hover:scale-[1.02];
+  }
+
+  .shimmer-effect {
+    @apply relative overflow-hidden;
+  }
+
+  .shimmer-effect::after {
+    @apply absolute top-0 left-0 w-full h-full bg-shimmer animate-shimmer;
+    content: "";
+  }
+
+  .input-enhanced {
+    @apply transition-all duration-300 hover:border-primary focus:border-primary
+    focus:ring focus:ring-primary/20 shadow-sm hover:shadow;
+  }
+
+  .btn-glow {
+    @apply relative overflow-hidden;
+  }
+
+  .btn-glow::after {
+    @apply absolute inset-0 rounded-md bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0
+    transition-opacity duration-1000 ease-in-out;
+    content: "";
+    animation: btnGlow 3s infinite;
+  }
+
+  @keyframes btnGlow {
+    0% { opacity: 0; transform: translateX(-100%); }
+    50% { opacity: 0.5; }
+    100% { opacity: 0; transform: translateX(100%); }
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+  .hero-gradient {
+    @apply bg-gradient-to-b from-background to-background/50 dark:from-background dark:to-background/50;
+  }
+  .glass-panel {
+    @apply backdrop-blur-lg bg-background/80 border border-border/20 shadow-lg 
+    dark:bg-background/80 dark:border-border/20 transition-colors duration-300;
+  }
+  .nav-item {
+    @apply relative px-4 py-2 text-muted-foreground hover:text-foreground transition-colors duration-300
+    after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5
+    after:bg-primary after:scale-x-0 after:transition-transform after:duration-300
+    hover:after:scale-x-100 dark:text-muted-foreground dark:hover:text-foreground;
+  }
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold text-center mb-12 text-foreground dark:text-foreground
+    relative after:content-[''] after:absolute after:w-20 after:h-1 after:bg-primary
+    after:left-1/2 after:-translate-x-1/2 after:bottom-[-0.75rem];
+  }
+  .section-padding {
+    @apply py-20;
+  }
+}
+
+/* Animation classes for transitions */
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Make sure the scroll area works on all devices */
+@media (hover: none) {
+  .group:hover .group-hover\:opacity-100 {
+    opacity: 1;
+  }
+}
+
+/* Dark mode specific hover animations */
+.dark .hover-glow {
+  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.dark .hover-glow:hover {
+  box-shadow: 0 0 20px 2px rgba(22, 163, 74, 0.25);
+  transform: translateY(-5px);
+}
+
+/* Enhance dark mode hover effects */
+.dark .icon-hover:hover {
+  color: #16a34a; /* Dark green color */
+  filter: drop-shadow(0 0 5px rgba(22, 163, 74, 0.5));
+}
+
+.dark .card-3d-effect:hover {
+  box-shadow: 0 15px 30px -5px rgba(22, 163, 74, 0.15);
+  border-color: rgba(22, 163, 74, 0.4);
+}
+
+.dark .input-shadow:focus, 
+.dark .button-shadow:hover {
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.3), 0 0 15px rgba(22, 163, 74, 0.2);
+}
+
+/* Light mode hover effects */
+.light .icon-hover:hover {
+  color: #16a34a; /* Light green color */
+  filter: drop-shadow(0 0 5px rgba(22, 163, 74, 0.3));
+}
+
+.light .button-shadow:hover,
+.light .card-shadow:hover {
+  box-shadow: 0 8px 15px -2px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(22, 163, 74, 0.1);
+  border-color: rgba(22, 163, 74, 0.2);
+}
+
+.light .card-3d-effect:hover {
+  box-shadow: 0 15px 30px -5px rgba(22, 163, 74, 0.1);
+  border-color: rgba(22, 163, 74, 0.2);
+}
+
+/* Flip card animation */
+.flip-card {
+  perspective: 1000px;
+  height: 100%;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 0.75rem;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+/* Button hover effects */
+button:hover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0.1;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.8) 0%, transparent 70%);
+}
+
+.dark button:hover::after {
+  background: radial-gradient(circle at center, rgba(22, 163, 74, 0.3) 0%, transparent 70%);
+}
